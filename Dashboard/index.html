@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACTIA | EV Intelligence</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body data-theme="dark">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <img src="images/actiaa.png" alt="ACTIA" class="logo">
+                <span class="app-name">EV Intelligence</span>
+            </div>
+            
+            <div class="nav-menu">
+                <div class="nav-item active" onclick="showPage('metrics')">
+                    <i class="fas fa-gauge-high"></i>
+                    <span>Live Metrics</span>
+                </div>
+                <div class="nav-item" onclick="showPage('predictions')">
+                    <i class="fas fa-brain"></i>
+                    <span>AI Predictions</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Metrics Page -->
+            <div id="metrics-page" class="fade-in">
+                <div class="header">
+                    <h1 class="page-title">System Metrics</h1>
+                    <div class="header-controls">
+                        <div class="last-updated">
+                            <i class="fas fa-clock"></i>
+                            <span id="update-time">Just now</span>
+                        </div>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="theme-toggle">
+                            <span class="slider round">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Rest of your HTML remains exactly the same -->
+                <div class="metrics-grid">
+                    <div class="metric-card glass-card">
+                        <div class="metric-header">
+                            <span class="metric-name">Battery Temperature</span>
+                            <i class="fas fa-temperature-three-quarters" style="color: var(--danger);"></i>
+                        </div>
+                        <div class="metric-value" id="battery-temp">--</div>
+                        <div class="metric-unit">°C</div>
+                    </div>
+                    
+                    <div class="metric-card glass-card">
+                        <div class="metric-header">
+                            <span class="metric-name">Voltage Output</span>
+                            <i class="fas fa-bolt" style="color: var(--warning);"></i>
+                        </div>
+                        <div class="metric-value" id="voltage">--</div>
+                        <div class="metric-unit">Volts</div>
+                    </div>
+                    
+                    <div class="metric-card glass-card">
+                        <div class="metric-header">
+                            <span class="metric-name">Coolant Level</span>
+                            <i class="fas fa-droplet" style="color: var(--success);"></i>
+                        </div>
+                        <div class="metric-value" id="coolant">--</div>
+                        <div class="metric-unit">% Capacity</div>
+                    </div>
+                    
+                    <div class="metric-card glass-card">
+                        <div class="metric-header">
+                            <span class="metric-name">Current Draw</span>
+                            <i class="fas fa-plug-circle-bolt" style="color: var(--primary-light);"></i>
+                        </div>
+                        <div class="metric-value" id="current">--</div>
+                        <div class="metric-unit">Amperes</div>
+                    </div>
+                    
+                    <div class="metric-card glass-card">
+                        <div class="metric-header">
+                            <span class="metric-name">Vibration</span>
+                            <i class="fas fa-shake" style="color: #a78bfa;"></i>
+                        </div>
+                        <div class="metric-value" id="vibration">--</div>
+                        <div class="metric-unit">G-force</div>
+                    </div>
+                    
+                    <div class="metric-card glass-card">
+                        <div class="metric-header">
+                            <span class="metric-name">Internal Pressure</span>
+                            <i class="fas fa-gauge-high" style="color: #f472b6;"></i>
+                        </div>
+                        <div class="metric-value" id="pressure">--</div>
+                        <div class="metric-unit">kPa</div>
+                    </div>
+                </div>
+                
+                <div class="glass-card" style="padding: 1.5rem; grid-column: 1 / -1;">
+                    <h3 style="margin-bottom: 1rem; font-weight: 600;">Live Data Stream</h3>
+                    <div style="height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.03);">
+                        <i class="fas fa-chart-line" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Predictions Page -->
+            <div id="predictions-page" class="hidden">
+                <div class="header">
+                    <h1 class="page-title">Predictive Analytics</h1>
+                    <div class="header-controls">
+                        <div class="last-updated">
+                            <i class="fas fa-clock"></i>
+                            <span id="prediction-time">Just now</span>
+                        </div>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="theme-toggle">
+                            <span class="slider round">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="predictions-container">
+                    <div class="prediction-card glass-card">
+                        <div class="prediction-header">
+                            <div class="prediction-title">Coolant System Failure</div>
+                            <div class="prediction-risk risk-low" id="coolant-risk">Low Risk (8%)</div>
+                        </div>
+                        <div class="prediction-details">
+                            The coolant circulation system is operating within normal parameters. No signs of leakage or pump degradation detected in the current analysis window.
+                        </div>
+                        <div class="recommendation">
+                            <strong>Recommendation:</strong> Next routine maintenance check scheduled in <strong>12 days</strong>.
+                        </div>
+                    </div>
+                    
+                    <div class="prediction-card glass-card">
+                        <div class="prediction-header">
+                            <div class="prediction-title">Transformer Fault</div>
+                            <div class="prediction-risk risk-medium" id="transformer-risk">Medium Risk (42%)</div>
+                        </div>
+                        <div class="prediction-details">
+                            Voltage regulation shows minor instability patterns that may indicate early winding insulation wear. Not critical but warrants observation.
+                        </div>
+                        <div class="recommendation">
+                            <strong>Recommendation:</strong> Schedule diagnostic scan within <strong>5-7 business days</strong> if fluctuations persist.
+                        </div>
+                    </div>
+                    
+                    <div class="prediction-card glass-card">
+                        <div class="prediction-header">
+                            <div class="prediction-title">Battery Thermal Runaway</div>
+                            <div class="prediction-risk risk-high" id="battery-risk">High Risk (76%)</div>
+                        </div>
+                        <div class="prediction-details">
+                            Temperature differentials across cell modules exceed safe thresholds. Current cooling system response is insufficient for sustained operation at this load.
+                        </div>
+                        <div class="recommendation">
+                            <strong>Immediate Action:</strong> Reduce load to <strong>60% capacity</strong> and initiate supplemental cooling protocol.
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem; font-weight: 600;">Model Confidence</h3>
+                        <div style="height: 250px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.03);">
+                            <i class="fas fa-chart-pie" style="font-size: 2rem;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="scripts/script.js"></script>
+</body>
+</html>
