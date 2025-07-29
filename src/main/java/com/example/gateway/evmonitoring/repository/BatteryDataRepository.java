@@ -1,5 +1,4 @@
 package com.example.gateway.evmonitoring.repository;
-
 import com.azure.cosmos.implementation.guava25.base.Optional;
 import com.azure.spring.data.cosmos.repository.CosmosRepository;
 import com.azure.spring.data.cosmos.repository.Query;

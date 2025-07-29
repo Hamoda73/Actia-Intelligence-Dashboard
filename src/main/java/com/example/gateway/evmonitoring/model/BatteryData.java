@@ -1,5 +1,4 @@
 package com.example.gateway.evmonitoring.model;
-
 import com.azure.spring.data.cosmos.core.mapping.Container;
 import com.azure.spring.data.cosmos.core.mapping.PartitionKey;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -57,7 +56,6 @@ public class BatteryData {
         @JsonProperty("iothub-message-source")
         private String iothubMessageSource;
     }
-
     @Data
     public static class Body {
         private String timestamp;

@@ -1,12 +1,10 @@
 package com.example.gateway.evmonitoring.controller;
-
 import com.example.gateway.evmonitoring.model.BatteryData;
 import com.example.gateway.evmonitoring.repository.BatteryDataRepository;
 import com.example.gateway.evmonitoring.service.BatteryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -41,7 +39,4 @@ public class BatteryDataController {
                 .lastModified(lastModified)
                 .body(data);
     }
-
-
-
 }

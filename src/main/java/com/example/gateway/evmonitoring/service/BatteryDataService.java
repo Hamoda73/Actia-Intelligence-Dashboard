@@ -20,7 +20,7 @@ public class BatteryDataService {
         return result;
     }
 
-    // Option 1: Handle list results
+
     public BatteryData getLatestReading() {
         List<BatteryData> results = batteryDataRepository.findLatestReading();
         return results.isEmpty() ? null : results.get(0);
