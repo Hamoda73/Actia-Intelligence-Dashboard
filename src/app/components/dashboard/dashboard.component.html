@@ -1,0 +1,334 @@
+<!-- src/app/components/dashboard/dashboard.component.html -->
+<div class="app-container">
+  <!-- Sidebar Navigation -->
+  <div class="sidebar">
+    <div class="logo-container">
+      <img src="assets/images/actiaa.png" alt="ACTIA" class="logo">
+      <span class="app-name">EV Intelligence</span>
+    </div>
+    
+    <div class="nav-menu">
+      <div 
+        class="nav-item" 
+        [class.active]="currentPage === 'metrics'"
+        (click)="showPage('metrics', $event)">
+        <i class="fas fa-gauge-high"></i>
+        <span>Live Metrics</span>
+      </div>
+      <div 
+        class="nav-item" 
+        [class.active]="currentPage === 'predictions'"
+        (click)="showPage('predictions', $event)">
+        <i class="fas fa-brain"></i>
+        <span>AI Predictions</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Metrics Page -->
+    <div 
+      *ngIf="currentPage === 'metrics'" 
+      class="fade-in">
+      <div class="header">
+        <h1 class="page-title">EV Battery Metrics</h1>
+        <div class="header-controls">
+          <div class="last-updated">
+            <i class="fas fa-clock"></i>
+            <span>{{ metrics?.lastUpdated || 'Loading...' }}</span>
+          </div>
+          <label class="theme-switch">
+            <input 
+              type="checkbox" 
+              [checked]="!isDarkTheme"
+              (change)="toggleTheme()">
+            <span class="slider round">
+              <i class="fas fa-sun"></i>
+              <i class="fas fa-moon"></i>
+            </span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="metrics-grid" *ngIf="metrics">
+        <!-- Battery Voltage -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">Battery Voltage</span>
+            <i class="fas fa-bolt" style="color: var(--warning);"></i>
+          </div>
+          <div class="metric-value">{{ metrics.batteryVoltage | number:'1.2-2' }}</div>
+          <div class="metric-unit">V</div>
+        </div>
+        
+        <!-- Motor Current -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">Motor Current</span>
+            <i class="fas fa-plug-circle-bolt" style="color: var(--primary-light);"></i>
+          </div>
+          <div class="metric-value">{{ metrics.motorCurrent | number:'1.1-1' }}</div>
+          <div class="metric-unit">A</div>
+        </div>
+        
+        <!-- State of Charge -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">State of Charge</span>
+            <i class="fas fa-battery-three-quarters" style="color: var(--success);"></i>
+          </div>
+          <div class="metric-value">{{ metrics.stateOfCharge | number:'1.0-0' }}</div>
+          <div class="metric-unit">%</div>
+        </div>
+        
+        <!-- Max Temperature -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">Max Temperature</span>
+            <i class="fas fa-temperature-three-quarters" style="color: var(--danger);"></i>
+          </div>
+          <div class="metric-value">{{ metrics.maxTemperature | number:'1.1-1' }}</div>
+          <div class="metric-unit">°C</div>
+        </div>
+        
+        <!-- Min Temperature -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">Min Temperature</span>
+            <i class="fas fa-temperature-low" style="color: var(--info);"></i>
+          </div>
+          <div class="metric-value">{{ metrics.minTemperature | number:'1.1-1' }}</div>
+          <div class="metric-unit">°C</div>
+        </div>
+        
+        <!-- Max Cell Voltage -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">Max Cell Voltage</span>
+            <i class="fas fa-arrow-up" style="color: #10b981;"></i>
+          </div>
+          <div class="metric-value">{{ metrics.maxCellVoltage | number:'1.3-3' }}</div>
+          <div class="metric-unit">V</div>
+        </div>
+        
+        <!-- Min Cell Voltage -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">Min Cell Voltage</span>
+            <i class="fas fa-arrow-down" style="color: #f59e0b;"></i>
+          </div>
+          <div class="metric-value">{{ metrics.minCellVoltage | number:'1.3-3' }}</div>
+          <div class="metric-unit">V</div>
+        </div>
+        
+        <!-- Vehicle State -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">Vehicle State</span>
+            <i class="fas fa-car" style="color: var(--primary);"></i>
+          </div>
+          <div class="metric-value status-value">{{ metrics.vehicleState | titlecase }}</div>
+          <div class="metric-unit">Status</div>
+        </div>
+        
+        <!-- Charge State -->
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-name">Charge State</span>
+            <i class="fas fa-charging-station" 
+               [style.color]="metrics.chargeState === 'charging' ? 'var(--success)' : 'var(--warning)'"></i>
+          </div>
+          <div class="metric-value status-value">{{ metrics.chargeState | titlecase }}</div>
+          <div class="metric-unit">Status</div>
+        </div>
+      </div>
+      
+      <!-- Loading state -->
+      <div class="metrics-grid" *ngIf="!metrics">
+        <div class="metric-card glass-card" *ngFor="let i of [1,2,3,4,5,6,7,8,9]">
+          <div class="metric-header">
+            <span class="metric-name">Loading...</span>
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <div class="metric-value">--</div>
+          <div class="metric-unit">--</div>
+        </div>
+      </div>
+      
+      <!-- Device Information Card -->
+      <div class="glass-card" style="padding: 1.5rem; margin-top: 2rem;" *ngIf="metrics">
+        <h3 style="margin-bottom: 1rem; font-weight: 600;">Device Information</h3>
+        <div class="device-info-grid">
+          <div class="device-info-item">
+            <span class="info-label">Device ID:</span>
+            <span class="info-value">{{ metrics.deviceId }}</span>
+          </div>
+          <div class="device-info-item">
+            <span class="info-label">Sensor ID:</span>
+            <span class="info-value">{{ metrics.sensorId }}</span>
+          </div>
+          <div class="device-info-item">
+            <span class="info-label">Data Type:</span>
+            <span class="info-value">{{ metrics.type | titlecase }}</span>
+          </div>
+          <div class="device-info-item">
+            <span class="info-label">Last Update:</span>
+            <span class="info-value">{{ metrics.timestamp | date:'medium' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Charts Section -->
+      <div class="charts-container">
+        <!-- Battery Voltage & Current Chart -->
+        <div class="glass-card chart-card">
+          <h3 class="chart-title">Battery Voltage & Current</h3>
+          <div class="chart-wrapper">
+            <canvas id="voltageCurrentChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Temperature Monitoring Chart -->
+        <div class="glass-card chart-card">
+          <h3 class="chart-title">Temperature Monitoring</h3>
+          <div class="chart-wrapper">
+            <canvas id="temperatureChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Cell Voltage Balance Chart -->
+        <div class="glass-card chart-card">
+          <h3 class="chart-title">Cell Voltage Balance</h3>
+          <div class="chart-wrapper">
+            <canvas id="cellVoltageChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- State of Charge History Chart -->
+        <div class="glass-card chart-card">
+          <h3 class="chart-title">State of Charge History</h3>
+          <div class="chart-wrapper">
+            <canvas id="socChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Predictions Page -->
+    <div 
+      *ngIf="currentPage === 'predictions'" 
+      class="fade-in">
+      <div class="header">
+        <h1 class="page-title">EV Battery Predictions</h1>
+        <div class="header-controls">
+          <div class="last-updated">
+            <i class="fas fa-clock"></i>
+            <span>{{ predictions?.lastUpdated || 'Loading...' }}</span>
+          </div>
+          <label class="theme-switch">
+            <input 
+              type="checkbox" 
+              [checked]="!isDarkTheme"
+              (change)="toggleTheme()">
+            <span class="slider round">
+              <i class="fas fa-sun"></i>
+              <i class="fas fa-moon"></i>
+            </span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="predictions-container" *ngIf="predictions">
+        <div class="prediction-card glass-card">
+          <div class="prediction-header">
+            <div class="prediction-title">Battery Thermal Risk</div>
+            <div 
+              class="prediction-risk"
+              [ngClass]="getRiskClass(predictions.batteryRisk.level)">
+              {{ getRiskText(predictions.batteryRisk) }}
+            </div>
+          </div>
+          <div class="prediction-details">
+            {{ predictions.batteryRisk.description }}
+          </div>
+          <div class="recommendation">
+            <strong>Recommendation:</strong> {{ predictions.batteryRisk.recommendation }}
+          </div>
+        </div>
+        
+        <div class="prediction-card glass-card">
+          <div class="prediction-header">
+            <div class="prediction-title">Voltage Stability Risk</div>
+            <div 
+              class="prediction-risk"
+              [ngClass]="getRiskClass(predictions.voltageRisk.level)">
+              {{ getRiskText(predictions.voltageRisk) }}
+            </div>
+          </div>
+          <div class="prediction-details">
+            {{ predictions.voltageRisk.description }}
+          </div>
+          <div class="recommendation">
+            <strong>Recommendation:</strong> {{ predictions.voltageRisk.recommendation }}
+          </div>
+        </div>
+        
+        <div class="prediction-card glass-card">
+          <div class="prediction-header">
+            <div class="prediction-title">Cell Degradation Risk</div>
+            <div 
+              class="prediction-risk"
+              [ngClass]="getRiskClass(predictions.cellDegradationRisk.level)">
+              {{ getRiskText(predictions.cellDegradationRisk) }}
+            </div>
+          </div>
+          <div class="prediction-details">
+            {{ predictions.cellDegradationRisk.description }}
+          </div>
+          <div class="recommendation">
+            <strong>Recommendation:</strong> {{ predictions.cellDegradationRisk.recommendation }}
+          </div>
+        </div>
+        
+        <div class="glass-card" style="padding: 1.5rem;">
+          <h3 style="margin-bottom: 1rem; font-weight: 600;">Battery Health Analysis</h3>
+          <div class="health-metrics">
+            <div class="health-item">
+              <span class="health-label">Overall Battery Health:</span>
+              <span class="health-value" [style.color]="getHealthColor(predictions.overallHealth)">
+                {{ predictions.overallHealth }}%
+              </span>
+            </div>
+            <div class="health-item">
+              <span class="health-label">Temperature Efficiency:</span>
+              <span class="health-value">{{ predictions.temperatureEfficiency }}%</span>
+            </div>
+            <div class="health-item">
+              <span class="health-label">Charge Cycle Count:</span>
+              <span class="health-value">{{ predictions.chargeCycles }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Loading state -->
+      <div class="predictions-container" *ngIf="!predictions">
+        <div class="prediction-card glass-card" *ngFor="let i of [1,2,3]">
+          <div class="prediction-header">
+            <div class="prediction-title">Loading...</div>
+            <div class="prediction-risk risk-low">
+              <i class="fas fa-spinner fa-spin"></i>
+            </div>
+          </div>
+          <div class="prediction-details">
+            Loading prediction data...
+          </div>
+          <div class="recommendation">
+            <strong>Status:</strong> Analyzing battery data...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
