@@ -41,7 +41,7 @@ It processes **4.2M+ data points** to:
 
 ### 1. SOC Forecasting (LSTM)
 - **Input:** 16-step sequence (160 seconds) of battery metrics  
-- **Output:** SOC prediction at 40-second horizon  
+- **Output:** SOC prediction at an hour horizon  
 - **Performance (Test Set):**
   - MAE: **0.39 SOC** (~0.39%)
   - RMSE: **0.51 SOC**
