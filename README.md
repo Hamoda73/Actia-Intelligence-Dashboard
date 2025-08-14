@@ -7,7 +7,7 @@ Processes **real-time sensor data** with AI-driven forecasting and anomaly detec
 
 ## 🚗 EV Battery Monitoring System
 
-![SOC Anomaly Dashboard](https://via.placeholder.com/800x400?text=SOC+Anomaly+Dashboard)
+<img width="1893" height="912" alt="Screenshot 2025-08-13 005443" src="https://github.com/user-attachments/assets/0b293661-87c3-4d51-83d9-d7db1fa30006" />
 
 Real-time battery monitoring dashboard with **predictive analytics** and **feature-level anomaly detection**.
 
@@ -48,6 +48,8 @@ It processes **4.2M+ data points** to:
   - R²: **0.9987**
   - MAPE: **0.56%**
 - **Why LSTM?** Captures temporal dependencies in SOC trends for more accurate predictions.
+<img width="667" height="431" alt="Screenshot 2025-08-13 145634" src="https://github.com/user-attachments/assets/6f334fe9-2754-43c5-8709-97b5390d2b45" />
+<img width="605" height="372" alt="Screenshot 2025-08-13 010911" src="https://github.com/user-attachments/assets/62f1cc64-8d11-43dc-a309-3c121ed40907" />
 
 ---
 
@@ -57,6 +59,7 @@ It processes **4.2M+ data points** to:
   - Precision: **91%**
   - Detection Latency: **7.2s**
 - **Why LSTM Autoencoder?** Learns normal sequence patterns and flags deviations under varying load/temperature conditions.
+<img width="1012" height="309" alt="Screenshot 2025-08-14 001841" src="https://github.com/user-attachments/assets/0ce5abde-2bbb-4fa3-a606-eed0eb12cda0" />
 
 ```python
 class LSTMAutoencoder(nn.Module):
