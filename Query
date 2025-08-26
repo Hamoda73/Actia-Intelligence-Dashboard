@@ -1,0 +1,42 @@
+-- Original telemetry data to CosmosDB (for live metrics dashboard)
+SELECT
+    CONCAT(SystemProperties.[iothub-connection-device-id], '-', CAST(DATEDIFF(second, '1970-01-01', System.Timestamp) AS nvarchar(max))) as id,
+    SystemProperties.[iothub-connection-device-id] as evdata,
+    deviceId,
+    sensorId,
+    type,
+    vehicleState,
+    chargeState,
+    batteryVoltage,
+    motorCurrent,
+    stateOfCharge,
+    maxCellVoltage,
+    minCellVoltage,
+    maxTemperature,
+    minTemperature,
+    timestamp,
+    metadata
+INTO
+    [telemetry]
+FROM
+    [actiaiot]
+
+-- Send data to Azure Function for ML processing (Function will store predictions in CosmosDB directly)
+SELECT 
+    CONCAT(SystemProperties.[iothub-connection-device-id], '-prediction-', CAST(DATEDIFF(second, '1970-01-01', System.Timestamp) AS nvarchar(max))) as id,
+    SystemProperties.[iothub-connection-device-id] as deviceId,
+    vehicleState,
+    chargeState,
+    batteryVoltage,
+    motorCurrent,
+    stateOfCharge,
+    maxCellVoltage,
+    minCellVoltage,
+    maxTemperature,
+    minTemperature,
+    timestamp,
+    System.Timestamp AS processingTime
+INTO
+    [azure-function-output]
+FROM
+    [actiaiot]
