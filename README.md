@@ -31,14 +31,6 @@ This project demonstrates how cloud computing, machine learning, and modern soft
 
 Real-time monitoring with four synchronized charts tracking battery voltage, current, temperature, and cell voltage balance.
 
-### AI Predictions Interface
-<img width="667" alt="Screenshot 2025-08-13 145634" src="https://github.com/user-attachments/assets/6f334fe9-2754-43c5-8709-97b5390d2b45" />
-
-Predictive analytics dashboard displaying risk scores for thermal stability, voltage health, and cell degradation.
-
-### Light Theme Dashboard
-<img width="605" alt="Screenshot 2025-08-13 010911" src="https://github.com/user-attachments/assets/62f1cc64-8d11-43dc-a309-3c121ed40907" />
-
 Responsive design with dual-theme support for different operating conditions.
 
 ---
