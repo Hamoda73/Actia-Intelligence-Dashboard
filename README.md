@@ -1,6 +1,6 @@
 # Real-Time Electric Vehicle Battery Monitoring and Predictive Analytics System
 
-A production-grade cloud-native platform for electric vehicle battery health monitoring, combining real-time telemetry processing with AI-driven predictive analytics. Built during an 8-week engineering internship at ACTIA Engineering Services.
+A cloud-native platform for electric vehicle battery health monitoring, combining real-time telemetry processing with AI-driven predictive analytics. Built during an 8-week engineering internship at ACTIA Engineering Services.
 
 ---
 
@@ -148,7 +148,7 @@ Real-world EV battery telemetry from Chinese manufacturers:
 
 ## Project Context
 
-Developed during summer 2024 internship at ACTIA Engineering Services under the supervision of Mr. Sofiane Sayahi and Mr. Youssef Allagui. This project demonstrates the practical application of cloud-native architecture, machine learning operations, and full-stack development to solve real-world challenges in the electric vehicle industry.
+Developed during summer 2025 internship at ACTIA Engineering Services under the supervision of Mr. Sofiane Sayahi and Mr. Youssef Allagui. This project demonstrates the practical application of cloud-native architecture, machine learning operations, and full-stack development to solve real-world challenges in the electric vehicle industry.
 
 ---
 
